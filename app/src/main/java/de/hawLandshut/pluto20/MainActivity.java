@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "XX MyActivity";
-
+    public boolean currentUser=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +25,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         setContentView(R.layout.activity_main);
         Log.d(TAG, "my log onStart");
+
+        if (currentUser ) {
+            Log.d(TAG, "User not authenticated! ");
+            Intent intent = new Intent(getApplication(),
+                    SignInActivity.class);
+            startActivity(intent);
+            currentUser=false;
+
+        } else {
+            Log.d(TAG, "User authenticated.");
+        }
     }
 
     @Override
@@ -40,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         setContentView(R.layout.activity_main);
         Log.d(TAG, "my log onPause");
+        Toast.makeText(getApplicationContext(), "Your Pluto20 was been paused", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -55,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         setContentView(R.layout.activity_main);
         Log.d(TAG, "my log onDestroy");
+        Toast.makeText(getApplicationContext(), "Your Pluto20 was been destroyed", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -74,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.mainMenuHelp:
                 Log.d(TAG, "Help was pressed");
+                intent = new Intent ( getApplication(), SignInActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.mainMenuTest:
