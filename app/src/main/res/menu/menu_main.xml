@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuManageAccount"
+        android:title="Manage Account"
+        />
+    <item
+        android:id="@+id/menuGotoSignIn"
+        android:title="Gehe zu SignIn"
+        />
+    <item
+        android:id="@+id/menuGotoCreateAccount"
+        android:title="Gehe zu CreateAccount"
+        />
+    <item
+        android:id="@+id/menuGotoPost"
+        android:title="Gehe zu Post"
+        />
+
+    <item
+        android:id="@+id/menuGotoManageAccount"
+        android:title="Gehe zu ManageAccount"
+        />
+
+</menu>

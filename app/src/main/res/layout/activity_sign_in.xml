@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="de.hawlandshut.pluto20_ukw.SignInActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/sign_in_edittext_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/sign_in_edittext_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/sign_in_button_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In" />
+
+    <Button
+        android:id="@+id/sign_in_button_reset_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset Password" />
+
+    <TextView
+        android:id="@+id/sign_in_textview_hint_reset_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Diesen Text muss ich noch ergänzen" />
+
+    <Button
+        android:id="@+id/sign_in_button_create_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Account" />
+</LinearLayout>
