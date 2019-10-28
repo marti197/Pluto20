@@ -26,33 +26,39 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         ((Button) findViewById(R.id.signInButtonSignIn)).setOnClickListener(this);
         ((Button) findViewById(R.id.signInButtonCreateAccount)).setOnClickListener(this);
     }
+
     public void onClick(View v) {
         int i = v.getId();
         switch (i) {
             case R.id.signInButtonSignIn:
-                   doSignIn();
+                doSignIn();
                 return;
 
             case R.id.signInButtonResetPassword:
-               doResetPassword();
+                doResetPassword();
                 return;
 
             case R.id.signInButtonCreateAccount:
-               doCreateAccount();
+                doCreateAccount();
                 return;
             default:
                 return;
         }
     }
-    protected void doSignIn(){
+
+    protected void doSignIn() {
         Toast.makeText(getApplicationContext(), "SignIN", Toast.LENGTH_LONG).show();
 
 
     }
-    protected void doResetPassword(){Toast.makeText(getApplicationContext(), "Reset Password ?", Toast.LENGTH_LONG).show();}
-    protected void doCreateAccount(){
+
+    protected void doResetPassword() {
+        Toast.makeText(getApplicationContext(), "Reset Password ?", Toast.LENGTH_LONG).show();
+    }
+
+    protected void doCreateAccount() {
         Toast.makeText(getApplicationContext(), "Create Account?", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent( getApplication(), CreateAccountActivity.class);
+        Intent intent = new Intent(getApplication(), CreateAccountActivity.class);
         startActivity(intent);
     }
 

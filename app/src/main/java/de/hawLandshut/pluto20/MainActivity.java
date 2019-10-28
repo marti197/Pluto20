@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.mainMenuManageAccount:
                 Log.d(TAG, "ManageAccount was pressed.");
+                intent = new Intent ( getApplication(), ManageAccountActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.idWriteTime:

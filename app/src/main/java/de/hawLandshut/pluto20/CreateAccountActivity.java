@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mEditTextEMail;
     private EditText mEditTextPassword1;
@@ -15,12 +15,16 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Toast.makeText(getApplicationContext(), "create Account Activity started!", Toast.LENGTH_LONG).show();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-        mEditTextEMail =  ((EditText) findViewById(R.id.createAccountEmail));
-        mEditTextPassword1 =  ((EditText) findViewById(R.id.createAccountPassword1));
-        mEditTextPassword2 =  ((EditText) findViewById(R.id.createAccountPassword2));
 
+        mEditTextEMail = ((EditText) findViewById(R.id.createAccountEmail));
+        mEditTextPassword1 = ((EditText) findViewById(R.id.createAccountPassword1));
+        mEditTextPassword2 = ((EditText) findViewById(R.id.createAccountPassword2));
+
+       findViewById (R.id.createAccountButtonCreateAccount).setOnClickListener(this);
         // TODO: Remove presets later
         mEditTextEMail.setText("xxx@gmail.com");
         mEditTextPassword1.setText("123456");
@@ -40,7 +44,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-    private void doCreateAccount(){
+    private void doCreateAccount() {
         Toast.makeText(getApplicationContext(), "created Account test", Toast.LENGTH_LONG).show();
     }
 }

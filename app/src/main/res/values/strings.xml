@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Pluto20</string>
     <string name="help">Help;)</string>
+    <string name="textDeleteAccount">For security reasons please enter password to delete your
+    account.\nCaution: Deletion can not be undone!</string>
 </resources>
