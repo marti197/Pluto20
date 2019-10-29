@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.mainMenuPost:
                 Log.d(TAG, "Post was pressed");
+                intent = new Intent (getApplication(), PostActivity.class);
+                startActivity( intent);
                 return true;
 
             case R.id.mainMenuHelp:
