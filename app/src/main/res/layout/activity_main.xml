@@ -15,26 +15,4 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="236dp"
-        android:layout_height="40dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="353dp"
-        android:layout_height="218dp"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="120dp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="257dp"
-        android:layout_height="22dp"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="64dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

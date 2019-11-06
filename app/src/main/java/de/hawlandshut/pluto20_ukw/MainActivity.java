@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         switch( item.getItemId() ){
+            case R.id.menuWebView:
+                intent = new Intent( getApplication(), WebViewActivity.class);
+                startActivity( intent );
+                return true;
+
             case R.id.menuGotoSignIn:
                 intent = new Intent( getApplication(), SignInActivity.class);
                 startActivity( intent );
