@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "840150649083",
+    "firebase_url": "https://pluto20ukw-ee38a.firebaseio.com",
+    "project_id": "pluto20ukw-ee38a",
+    "storage_bucket": "pluto20ukw-ee38a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840150649083:android:a2e96a855c9a49a17c885e",
+        "android_client_info": {
+          "package_name": "de.hawlandshut.pluto20_ukw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840150649083-llfiptna30g0af6s5ut2stlh9qqvs6o7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.hawlandshut.pluto20_ukw",
+            "certificate_hash": "eae4bb019136f2c3913c7564062a65459683ef9d"
+          }
+        },
+        {
+          "client_id": "840150649083-9h8jvfoj99fsp2utnl0cef6tc9j13oo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-W-sKWgI2IGB0K5TVd342wfKpDgASKbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840150649083-9h8jvfoj99fsp2utnl0cef6tc9j13oo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
