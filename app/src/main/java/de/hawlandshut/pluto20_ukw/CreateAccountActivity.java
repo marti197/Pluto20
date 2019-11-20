@@ -1,14 +1,23 @@
 package de.hawlandshut.pluto20_ukw;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener{
+
+    private final static String TAG = "xx CreateACActivity";
 
     // Deklarieren der UI Variablen
     EditText mEditTextMail;
@@ -41,9 +50,30 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         int i = v.getId();
         switch(i) {
             case R.id.create_account_button_create:
+                doCreateAccount();
                 Toast.makeText( getApplicationContext(), "Create Account pressed", Toast.LENGTH_LONG).show();
                 return;
         }
     }
+    private void doCreateAccount() {
+        String email = mEditTextMail.getText().toString();
+        String password1 =mEditTextPassword1.getText().toString();
+        String password2 =mEditTextPassword2.getText().toString();
 
+        // TODO Validation: password equal?
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password1).addOnCompleteListener(
+                this,
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "User created.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "User creation failed.", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, task.getException().getLocalizedMessage());
+                        }
+                    }
+                }
+        );
+    }
 }

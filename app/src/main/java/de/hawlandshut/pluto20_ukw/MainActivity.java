@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<Post> mAdapter;
 
     // TODO: Just for testing. Remove
-    String TEST_MAIL = "dieter.greipl@gmail.com";
+    String TEST_MAIL = "mpad197@gmx.de";
     String TEST_PASSWORD = "123456";
 
     @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Init ListView
-        mListView = findViewById( R.id.mainListViewMessages);
+        mListView = findViewById(R.id.mainListViewMessages);
 
         // Initialisieren der Post-Liste mit Testdaten
         mPostList = (ArrayList<Post>) TestData.createTestdata();
@@ -58,27 +58,27 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_2,
                 android.R.id.text1,
                 mPostList
-        ){
+        ) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView line1, line2;
 
-                line1 = view.findViewById( android.R.id.text1 );
-                line2 = view.findViewById( android.R.id.text2 );
+                line1 = view.findViewById(android.R.id.text1);
+                line2 = view.findViewById(android.R.id.text2);
 
                 Post post = getItem(position);
 
-                line1.setText(post.author+ " (" +post.title + " )");
-                line2.setText(post.body );
+                line1.setText(post.author + " (" + post.title + " )");
+                line2.setText(post.body);
 
                 return view;
             }
         };
 
         // Adapter der Listview zuordnen...
-        mListView.setAdapter( mAdapter );
+        mListView.setAdapter(mAdapter);
     }
 
 
@@ -94,32 +94,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
-        switch( item.getItemId() ){
+        switch (item.getItemId()) {
             case R.id.menu1TestAuth:
-               doTestAuth();
+                doTestAuth();
+                return true;
 
             case R.id.menu2CreateUser:
                 doCreateUser();
-
+                return true;
             case R.id.menu3SignIn:
                 doSignIn();
-
+                return true;
             case R.id.menu4SignOut:
                 doTestSignOut();
-
+                return true;
             case R.id.menu5DeleteTestUser:
                 doDeleteTestUser();
-
+                return true;
             case R.id.menu6SendResetPasswordMail:
                 doSendResetPasswordMail();
-
+                return true;
             case R.id.menu7SendActivationMail:
                 doSendActivationMail();
-
+                return true;
 
             case R.id.menu8SetDisplayName:
                 doSetDisplayName();
-
+                return true;
             default:
                 return true;
         }
@@ -130,37 +131,135 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doSendActivationMail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Toast.makeText(getApplicationContext(), "Sending not possible: not signed in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // At this point we have a valid use object
+        if (user.isEmailVerified()){
+            Toast.makeText(getApplicationContext(), "Account already verified", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        user.sendEmailVerification().addOnCompleteListener(
+                this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Verification mail sent",
+                                    Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Email sent.");
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Sending mail failed (check log",
+                                    Toast.LENGTH_LONG).show();
+                            Log.d(TAG, task.getException().getLocalizedMessage());
+
+                        }
+
+                    }
+                });
 
     }
 
     private void doSendResetPasswordMail() {
+        FirebaseAuth.getInstance().sendPasswordResetEmail(TEST_MAIL).addOnCompleteListener(
+                this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "We sent you a link to your e-mail account.",
+                                    Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Email sent.");
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Could not send mail. Correct e-mail?.",
+                                    Toast.LENGTH_LONG).show();
+
+                        }
+
+                    }
+                });
 
     }
 
     private void doDeleteTestUser() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Toast.makeText(getApplicationContext(), "Can not delete Account. You are not signed in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        user.delete().addOnCompleteListener(
+                this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Account deleted", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Account deletion failed (check log)", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, task.getException().getLocalizedMessage());
+                        }
+
+                    }
+                });
+
 
     }
 
-    private void doTestSignOut() {
 
+
+    private void doTestSignOut() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            Toast.makeText(getApplicationContext(), "You are not signed in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        FirebaseAuth.getInstance().signOut();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Toast.makeText(getApplicationContext(), "SignetOUt", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Sign out failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void doSignIn() {
-
-    }
-
-    private void doCreateUser() {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword( TEST_MAIL, TEST_PASSWORD).addOnCompleteListener(
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            Toast.makeText(getApplicationContext(), "Your are signed in. Sign out first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(TEST_MAIL, TEST_PASSWORD).addOnCompleteListener(
                 this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText( getApplicationContext(), "User created.", Toast.LENGTH_LONG).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "User signed in.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "User sign in failed.", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, task.getException().getLocalizedMessage());
                         }
-                        else {
-                            Toast.makeText( getApplicationContext(), "User creation failed.", Toast.LENGTH_LONG).show();
-                            Log.d(TAG,task.getException().getLocalizedMessage());
+                    }
+                });
+    }
+
+
+    private void doCreateUser() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(TEST_MAIL, TEST_PASSWORD).addOnCompleteListener(
+                this,
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "User created.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "User creation failed.", Toast.LENGTH_LONG).show();
+                            Log.d(TAG, task.getException().getLocalizedMessage());
                         }
                     }
                 }
@@ -170,14 +269,27 @@ public class MainActivity extends AppCompatActivity {
     private void doTestAuth() {
         FirebaseUser user;
         user = FirebaseAuth.getInstance().getCurrentUser();
-        String msg =  (user == null) ? "Not Authenticated" : ("Authenticated : " +user.getEmail() );
-        Toast.makeText( getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        String msg = (user == null) ?
+                "Not Authenticated" :
+                ("Authenticated : " + user.getEmail()+ "Verified:"+ user.isEmailVerified()+")");
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(TAG, "onStart called");
+        // Check, if we have a user
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null){
+            //we have no user, Reset the app and goto SignInActivity
+            //TODO Reset App
+
+            //Goto SignInAct
+            Intent intent;
+            intent=new Intent(getApplication(), SignInActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
