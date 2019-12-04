@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
     <item
-        android:id="@+id/menu1TestAuth"
-        android:title="Test Auth State"
+        android:id="@+id/menu_manage_account"
+        android:title="Manage Account"
         />
+    <item
+        android:id="@+id/menu_post"
+        android:title="Post"
+        />
+
+    <item
+        android:id="@+id/menu_write"
+        android:title="Test Writing to Database"
+        />
+<!--
 
     <item
         android:id="@+id/menu2CreateUser"
@@ -40,5 +52,6 @@
         android:id="@+id/menu8SetDisplayName"
         android:title="Set Display Name"
         />
+-->
 
 </menu>
